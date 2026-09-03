@@ -20,6 +20,7 @@ export const courseConfig: CourseConfig = {
   title: "[FULL AI 디자인] 생성형 AI 광고 콘텐츠 제작",
   startDate: "2026-08-03",
   endDate: "2026-09-07",
+  totalHours: 39,
   studentAccount: { id: "fullai", password: "fullai2026" },
   sessions: [session01, session02, session03, session04, session05, session06, session07, session08, session09, session10, session11, session12, session13],
 };
