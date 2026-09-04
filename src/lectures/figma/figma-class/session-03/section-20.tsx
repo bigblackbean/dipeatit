@@ -1,6 +1,6 @@
 import { ComponentLessonSlideView } from "./component-lesson-slide";
 import { componentLessonSlides } from "./slides";
 
-export function Section01() {
-  return <ComponentLessonSlideView slide={componentLessonSlides[0]} />;
+export function Section20() {
+  return <ComponentLessonSlideView slide={componentLessonSlides[19]} />;
 }
