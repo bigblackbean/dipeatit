@@ -1,6 +1,6 @@
 import { PrototypeLessonSlideView } from "./prototype-lesson-slide";
 import { prototypeLessonSlides } from "./slides";
 
-export function Section01() {
-  return <PrototypeLessonSlideView slide={prototypeLessonSlides[0]} />;
+export function Section44() {
+  return <PrototypeLessonSlideView slide={prototypeLessonSlides[43]} />;
 }
