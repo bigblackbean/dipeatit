@@ -9,7 +9,7 @@ const today = "2026-09-03";
 const noAccess = () => false;
 
 test("Figma category, schedule, and credentials are registered without replacing FULL AI", () => {
-  assert.equal(categories.find(category => category.id === "figma")?.count, 1);
+  assert.equal(categories.find(category => category.id === "figma")?.count, 2);
   assert.equal(ai.sessions.length, 13);
   assert.equal(ai.totalHours, 39);
   assert.equal(figma.title, "피그마 강의");

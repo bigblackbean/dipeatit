@@ -873,6 +873,22 @@ function SessionList({
                   </span>
                 </span>
               </button>
+              {(admin || state !== "locked") && session.attachments.length > 0 && (
+                <div className="flex flex-wrap gap-2 pl-16 sm:pl-0">
+                  {session.attachments.map((file) => (
+                    <a
+                      key={file.url}
+                      href={file.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${session.session}회차 ${file.name} 새 탭에서 열기`}
+                      className="focus-ring inline-flex h-9 items-center gap-2 rounded-lg border border-blue-100 bg-blue-50 px-3 text-xs font-bold text-[#3478f6] hover:bg-blue-100"
+                    >
+                      <Paperclip size={14} /> 수업자료
+                    </a>
+                  ))}
+                </div>
+              )}
               {admin ? (
                 <div className="flex items-center gap-2 pl-16 sm:pl-0">
                   <button
@@ -1314,10 +1330,11 @@ function LectureViewer({
           {session.attachments.length > 0 && (
             <button
               onClick={() => setAttachmentOpen(!attachmentOpen)}
+              aria-expanded={attachmentOpen}
               className="focus-ring flex h-10 items-center gap-2 rounded-xl border border-[#dfe5ef] px-3 text-xs font-bold text-[#667085] hover:text-[#3478f6]"
             >
               <Paperclip size={17} />{" "}
-              <span className="hidden sm:inline">첨부자료</span>
+              <span>수업자료</span>
             </button>
           )}
           <button

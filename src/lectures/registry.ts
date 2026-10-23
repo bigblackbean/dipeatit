@@ -1,8 +1,9 @@
 import { courseConfig as aiCourse } from "./ai-design/full-ai-design-ad-content/course.config";
 import { courseConfig as figmaCourse } from "./figma/figma-class/course.config";
+import { courseConfig as figma2Course } from "./figma/figma-class-2/course.config";
 import type { CourseConfig } from "./types";
 
-export const courses: CourseConfig[] = [aiCourse, figmaCourse];
+export const courses: CourseConfig[] = [aiCourse, figmaCourse, figma2Course];
 export const categories = [
   { id: "ai-design", name: "AI / AI Design", tone: "blue" },
   { id: "figma", name: "피그마", tone: "pink" },
