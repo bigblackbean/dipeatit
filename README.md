@@ -16,6 +16,12 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### Updating lecture content locally
+
+Use `npm run dev` while editing lectures so changes appear automatically. If port 3000 is already occupied, check the URL printed by the dev server; a server on port 3001 does not update the one on port 3000.
+
+For production mode, stop the running server, run `npm run build`, then run `npm run start`. Production mode serves the last build and does not reload source changes. Use the package scripts so the server runs the project's installed Next.js version rather than a globally installed `next`.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

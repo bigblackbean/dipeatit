@@ -6,6 +6,8 @@ import { authenticate, canOpenSession, resolveViewerLocation, restoreSession, ac
 import { courses } from "../src/lectures/registry";
 import { courseConfig as course } from "../src/lectures/figma/figma-class-2/course.config";
 import { introSlides } from "../src/lectures/figma/figma-class-2/session-01/slides";
+import { componentLessonSlides } from "../src/lectures/figma/figma-class-2/session-02/slides";
+import { componentLessonSlides as originalComponentSlides } from "../src/lectures/figma/figma-class/session-03/slides";
 
 const dates = ["2026-10-24", "2026-10-31", "2026-11-07", "2026-11-14", "2026-11-21"];
 const login = authenticate("figma2", "figma123")!;
@@ -60,5 +62,18 @@ test("direct links enforce release dates and restore the last of 50 HTML slides"
   assert.equal(resolveViewerLocation(login, params, () => false, dates[0])?.index, 49);
   params.set("session", "session-02");
   assert.equal(resolveViewerLocation(login, params, () => false, dates[0]), null);
-  assert.equal(resolveViewerLocation(login, params, () => false, dates[1])?.index, 0);
+  assert.equal(resolveViewerLocation(login, params, () => false, dates[1])?.index, 39);
+});
+
+test("second cohort session 2 retains all component lessons and its own access settings", () => {
+  const session = course.sessions[1];
+  assert.equal(componentLessonSlides, originalComponentSlides);
+  assert.equal(componentLessonSlides.length, 40);
+  assert.deepEqual(session.sections, componentLessonSlides.map(({ id, title }) => ({ id, title })));
+  assert.equal(session.releaseDate, dates[1]);
+  assert.equal(session.accessCode, "FIGMA21031");
+  assert.ok(session.attachments[0].url.includes("drive.google.com"));
+  const params = new URLSearchParams({ course: course.id, session: session.id, section: "29" });
+  assert.equal(resolveViewerLocation(login, params, () => false, dates[1])?.index, 28);
+  assert.equal(session.sections[28].title, "10. Instance Swap");
 });

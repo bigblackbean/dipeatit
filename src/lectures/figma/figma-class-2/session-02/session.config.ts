@@ -1,11 +1,15 @@
 import type { SessionConfig } from "../../../types";
+import { componentLessonSlides } from "./slides";
 
 export const sessionConfig: SessionConfig = {
   id: "session-02",
   session: 2,
-  title: "피그마 2회차",
+  title: "Component와 Instance",
   releaseDate: "2026-10-31",
   accessCode: "FIGMA21031",
-  attachments: [],
-  sections: [{ id: "section-01", title: "강의 준비 중" }],
+  attachments: [{
+    name: "Component · Instance 실습자료 (Google Drive)",
+    url: "https://drive.google.com/drive/folders/1jAcV3Blv21vTG1xO1T7cQgf24I9xDbje",
+  }],
+  sections: componentLessonSlides.map(({ id, title }) => ({ id, title })),
 };

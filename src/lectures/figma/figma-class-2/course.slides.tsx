@@ -1,5 +1,6 @@
 import type { SlideComponent } from "../../types";
 import { sections as session1 } from "./session-01/page";
+import { sections as session2 } from "./session-02/page";
 
 function PreparingLesson() {
   return <article className="flex aspect-video h-full w-full flex-col items-center justify-center gap-5 bg-[#f7faff] p-[6%] text-center">
@@ -11,7 +12,7 @@ function PreparingLesson() {
 
 export const courseSlides: Record<string, SlideComponent[]> = {
   "session-01": session1,
-  "session-02": [PreparingLesson],
+  "session-02": session2,
   "session-03": [PreparingLesson],
   "session-04": [PreparingLesson],
   "session-05": [PreparingLesson],
