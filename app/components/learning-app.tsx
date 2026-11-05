@@ -33,6 +33,8 @@ import {
 } from "lucide-react";
 import { BrandMark } from "./brand-mark";
 import { AttachmentItem } from "./attachment-item";
+import { CourseLearningContent, HomeworkReferenceLink, type CourseContentTab } from "./course-learning-content";
+import { courseConfig as figmaClass2 } from "@/src/lectures/figma/figma-class-2/course.config";
 import { categories, courses, findCourse } from "@/src/lectures/registry";
 import { slidesByCourse } from "@/src/lectures/slides-registry";
 import {
@@ -781,7 +783,9 @@ function AdminCourse({
           </div>
         </div>
       </section>
-      <SessionList courseConfig={courseConfig} admin onOpen={onOpenSession} />
+      <CourseLearningContent courseId={courseConfig.id}>
+        <SessionList courseConfig={courseConfig} admin onOpen={onOpenSession} />
+      </CourseLearningContent>
     </div>
   );
 }
@@ -1031,6 +1035,16 @@ function StudentDashboard({
   courseConfig: CourseConfig;
   onOpen: (session: SessionConfig) => void;
 }) {
+  const [contentTab, setContentTab] = useState<CourseContentTab>("lessons");
+  const contentRef = useRef<HTMLDivElement>(null);
+  const openHomework = () => {
+    setContentTab("homework");
+    requestAnimationFrame(() => {
+      const panel = contentRef.current?.querySelector<HTMLElement>('[role="tabpanel"]:not([hidden])');
+      panel?.focus({ preventScroll: true });
+      panel?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
   const released = courseConfig.sessions.filter(
     (s) => sessionState(s) !== "locked",
   ).length;
@@ -1088,20 +1102,42 @@ function StudentDashboard({
           </p>
         </div>
         <div className="rounded-[20px] border border-[#e1e7f0] bg-white p-5 sm:p-6">
-          <p className="text-xs font-bold text-[#98a2b3]">오늘의 안내</p>
-          <p className="mt-2 font-bold">
-            {courseState(courseConfig) === "종료"
-              ? "모든 회차가 공개되었습니다"
-              : courseState(courseConfig) === "예정"
-                ? "곧 강의가 시작됩니다"
-                : "강의가 진행 중입니다"}
-          </p>
-          <p className="mt-2 text-sm leading-6 text-[#667085]">
-            잠긴 회차도 강사가 전달한 인증코드로 미리 입장할 수 있어요.
-          </p>
+          {courseConfig.id === figmaClass2.id ? (
+            <>
+              <p className="text-xs font-bold text-[#6c56e8]">숙제</p>
+              <p className="mt-2 font-bold">반응형 헤드폰 썸네일 제작하기</p>
+              <div className="mt-4 flex flex-wrap items-center gap-4">
+                <button
+                  onClick={openHomework}
+                  className="focus-ring inline-flex h-10 items-center gap-2 rounded-xl bg-[#3478f6] px-4 text-sm font-bold text-white hover:bg-[#2467e8]"
+                >
+                  숙제하러 가기 <ArrowRight size={16} />
+                </button>
+                <HomeworkReferenceLink />
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="text-xs font-bold text-[#98a2b3]">오늘의 안내</p>
+              <p className="mt-2 font-bold">
+                {courseState(courseConfig) === "종료"
+                  ? "모든 회차가 공개되었습니다"
+                  : courseState(courseConfig) === "예정"
+                    ? "곧 강의가 시작됩니다"
+                    : "강의가 진행 중입니다"}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-[#667085]">
+                잠긴 회차도 강사가 전달한 인증코드로 미리 입장할 수 있어요.
+              </p>
+            </>
+          )}
         </div>
       </div>
-      <SessionList courseConfig={courseConfig} onOpen={onOpen} />
+      <div ref={contentRef}>
+        <CourseLearningContent key={courseConfig.id} courseId={courseConfig.id} activeTab={contentTab} onTabChange={setContentTab}>
+          <SessionList courseConfig={courseConfig} onOpen={onOpen} />
+        </CourseLearningContent>
+      </div>
     </div>
   );
 }
