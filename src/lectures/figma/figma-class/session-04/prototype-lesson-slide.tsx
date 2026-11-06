@@ -18,11 +18,14 @@ function SummaryTable({ items }: { items: string[] }) {
   return <table className={styles.table}><thead><tr>{rows[0].map(cell => <th key={cell} scope="col">{cell}</th>)}</tr></thead><tbody>{rows.slice(1).map(row => <tr key={row[0]}><th scope="row">{row[0]}</th>{row.slice(1).map(cell => <td key={cell}>{cell}</td>)}</tr>)}</tbody></table>;
 }
 
-export function PrototypeLessonSlideView({ slide }: { slide: PrototypeLessonSlide }) {
+export function PrototypeLessonSlideView({
+  slide,
+  materialUrl = PROTOTYPE_MATERIAL_URL,
+}: { slide: PrototypeLessonSlide; materialUrl?: string }) {
   const cover = slide.kind === "cover";
   return <div className={styles.container}><article className={`${styles.slide} ${cover ? styles.cover : ""}`} data-prototype-slide={slide.id} aria-label={slide.title}>
     <header className={styles.header}><p className={styles.eyebrow}>{slide.eyebrow}</p><h2>{slide.title}</h2></header>
-    {cover ? <div className={styles.coverBody}><p className={styles.lead}>{slide.items[0]}</p><p>{slide.items.slice(1).join("  ·  ")}</p><a href={PROTOTYPE_MATERIAL_URL} target="_blank" rel="noopener noreferrer">실습 파일 열기 ↗</a></div>
+    {cover ? <div className={styles.coverBody}><p className={styles.lead}>{slide.items[0]}</p><p>{slide.items.slice(1).join("  ·  ")}</p><a href={materialUrl} target="_blank" rel="noopener noreferrer">실습 파일 열기 ↗</a></div>
     : slide.kind === "pipeline" ? <Pipeline items={slide.items}/>
     : slide.kind === "table" ? <SummaryTable items={slide.items}/>
     : slide.kind === "keywords" ? <div className={styles.keywords}>{slide.items.map(item => <span key={item}>{item}</span>)}</div>

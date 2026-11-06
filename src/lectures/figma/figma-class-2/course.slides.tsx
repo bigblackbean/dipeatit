@@ -1,7 +1,7 @@
 import type { SlideComponent } from "../../types";
 import { sections as session1 } from "./session-01/page";
 import { sections as session2 } from "./session-02/page";
-import { sections as session3 } from "../figma-class/session-04/page";
+import { sections as session3 } from "./session-03/page";
 
 function PreparingLesson() {
   return <article className="flex aspect-video h-full w-full flex-col items-center justify-center gap-5 bg-[#f7faff] p-[6%] text-center">
